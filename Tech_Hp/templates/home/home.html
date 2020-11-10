@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block homeactive %} active {% endblock homeactive %}
+{% block title %} Tech Hp {% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/style.css">
+{% endblock css %}
+
+{% block js %}
+
+<script>
+  let previews = document.getElementsByClassName('previews');
+  Array.from(previews).forEach((element) => {
+    element.innerHTML = element.innerText;
+  })
+</script>
+
+<script>
+  window.onload = function () {
+    console.log("loaded")
+    var typed = new Typed('#typed', {
+      strings: ["Welcome to Tech HP", "Know about ", "New Technology", "Mobile tips and tricks", "Evreyday New Technology news", "and other awesome  tech information with me :)"],
+      backSpeed: 15,
+      smartBackspace: true,
+      backDelay: 1200,
+      startDelay: 1000,
+      typeSpeed: 25,
+      loop: true,
+    });
+  };
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.9/typed.min.js" async defer></script>
+
+
+{% endblock js %}
+
+{% block body %}
+
+
+
+<div class="container text-dark">
+  <div class="type-js">
+
+    <span id="typed" class="welcome-js "></span> 
+  </div>
+
+  <h1>
+    <a class="text-dark" id="desc" href="/blog/" role="button">Articles</a>
+  </h1>
+  <p class="desc">This is a place where you can learn new things about technology every
+    day and news about new technologies every day.</p>
+  <p class="desc">
+    "It has become appallingly obvious that our technology has exceeded our humanity."</p>
+
+
+  <h2 class="my-3">Recent Post:</h2>
+
+  {% for post in lts %}
+  {% load static %}
+  <div class="media mt-3 pt-3 pb-3">
+    <a href="blog/{{post.slug}}" id="desc">
+      <img src="/static/img/{{post.image}}" class="mr-3 bloghomeimg rounded card-img-top" alt="..."> </a>
+    <div class="media-body">
+      <h4 class="card-title mx-2 mt-2 px-2"><a href="blog/{{post.slug}}" role="button" id="title">{{post.title}}</a></h4>
+      <a href="blog/{{post.slug}}" role="button" class="text-dark" id="desc">
+      <div class="previews  px-2 mx-2">
+        {{post.content|safe|truncatechars_html:400}}
+      </div></a>
+    </div>
+
+  </div>
+  {% endfor %}
+
+  <h2 class="my-3">Popular Posts : </h2>
+
+  {% for post in allPosts %}
+  {% load static %}
+  <div class="media mt-3 pt-3 pb-3 ">
+    <a href="blog/{{post.slug}}" id="desc">
+      <img src="/static/img/{{post.image}}" class="mr-3 bloghomeimg rounded card-img-top" alt="..."> </a>
+    <div class="media-body">
+      <h4 class="card-title mx-2 mt-2 px-2"><a href="blog/{{post.slug}}" role="button" id="title">{{post.title}}</a></h4>
+      <a href="blog/{{post.slug}}" role="button" class="text-dark" id="desc">
+        <div class="previews  px-2 mx-2">
+          {{post.content|safe|truncatechars_html:400}}
+        </div></a>
+    </div>
+
+  </div>
+  {% endfor %}
+
+</div>
+{% endblock body %}

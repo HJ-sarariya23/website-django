@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %} {{cats}} {% endblock title %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/css/style.css">
+
+{% endblock css %}
+{% block js %}
+
+<script>
+
+  let previews = document.getElementsByClassName('previews');
+  Array.from(previews).forEach((element) => {
+    element.innerHTML = element.innerText;
+  })
+
+
+</script>
+
+{% endblock js %}
+
+
+{% block body %}
+
+<div class="homedesign text-dark">
+  <div class="container">
+    {% if category_posts %}
+    <h2 class="mb-2 pt-2 cattitle">Category : {{cats}} </h2>
+    {% for post in category_posts %}
+
+
+    {% load static %}
+    <div class="media mt-3 pt-3 pb-3">
+      <a href="/blog/{{post.slug}}" class="text-dark" id="desc">
+        <img src="/static/img/{{post.image}}" class="mr-3 bloghomeimg rounded card-img-top" alt="...">
+      </a>
+      <div class="media-body">
+
+        <h4 class="card-title mt-2 clrdesign mx-2 px-2"><a href="/blog/{{post.slug}}" id="title">{{post.title}}</a></h4>
+        <a href="/blog/{{post.slug}}" id="desc">
+          <p class="card-text ">
+            <div class="previews text-dark px-2 mx-2" >{{post.content|safe|truncatechars_html:400}}</div>
+          </p>
+          </a>
+
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <img class="w-100 h-100"
+      src="https://gt3themes.com/wp-content/uploads/2016/07/Top-20-Funny-and-Unusual-404-Error-Pages-to-Make-You-Smile.jpg"
+      alt="4o4 Page Not Found!!!!">
+    {% endif %}
+  </div>
+
+</div>
+{% endblock body %}

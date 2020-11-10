@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block blogactive %} active {% endblock blogactive %}
+{% block title %} BlogHome {% endblock title %}
+
+
+{% block css %}
+
+<link rel="stylesheet" href="/static/css/style.css">
+{% endblock css %}
+
+{% block js %}
+<script>
+  window.onload = function () {
+  let previews = document.getElementsByClassName('previews');
+  Array.from(previews).forEach((element) => {
+    element.innerHTML = element.innerText;
+  })
+  }
+</script>
+{% endblock js %}
+
+
+{% block body %}
+
+<div class="homedesign text-dark">
+<div class="container  py-3 query">
+<h3>Search results of "<i><b>{{query}}</b></i> " : </h3>
+{% if allPosts|length < 1 %}
+    <P>No results found</P>
+    <hr> 
+    Your search query: <b>{{query}}</b> did not match any documents. <br>
+    Suggesions:
+    <ul>
+        <li>Make sure that all words are correctly spelled.</li>
+        <li>Try different keywords.</li>
+        <li>Try more general keywords.</li>
+        <li>Try fewer keywords.</li>
+    </ul>
+{% endif %}
+
+{% for post in allPosts %}
+
+  {% load static %}
+  <div class="media mt-3 pt-3 pb-3 ">
+    <a href="blog/{{post.slug}}" >
+      <img src="/static/img/{{post.image}}"  class="mr-3 bloghomeimg rounded " alt="...">
+    </a>
+    <div class="media-body">
+      
+      <h4 class="card-title mx-2 mt-2 px-2"><a href="blog/{{post.slug}}" role="button" id="title">{{post.title}}</a></h4>
+      <a href="blog/{{post.slug}}" role="button" class="text-dark" id="desc">
+        <div class="previews  px-2 mx-2">
+          {{post.content|safe|truncatechars_html:400}}
+        </div></a>
+    </div>
+      
+  </div>
+{% endfor %}
+</div>
+</div>
+{% endblock body %}

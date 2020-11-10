@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <meta name="{{post.title}}" content="{{post.content}}">
+  <meta name="description" content="{{post.content}}">
+  <meta name="keywords" content="Teach Hp , Techhp,Teachhp,technology Facts,coding,programming,mobile tips and tricks">
+  <meta name="author" content="Harshil Prajapati">
+  <link rel="shortcut icon" href="favicon. ico" type="image/x-icon"> 
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Roboto&display=swap" rel="stylesheet">
+
+
+
+  {% block css %}
+
+  {% endblock css %}
+  <title>{% block title %}  {% endblock title %}</title>
+</head>
+
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <h2><a class="navbar-brand" href="/">Tech Hp</a></h2>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item {% block homeactive %}  {% endblock homeactive %}">
+          <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item {% block blogactive %}  {% endblock blogactive %}">
+          <a class="nav-link" href="/blog/">Article</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false">
+            Top Categories
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="/blog/category/Tech News/">Tech News</a>
+            <a class="dropdown-item" href="/blog/category/Tech Facts/">Tech Fact</a>
+            <a class="dropdown-item" href="/blog/category/Programming/">Programming</a>
+            <a class="dropdown-item" href="/blog/category/Computing/">Computing</a>
+
+          </div>
+        </li>
+
+        <li class="nav-item {% block contactactive %}  {% endblock contactactive %}">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+      </ul>
+ 
+      <form class="form-inline my-2 my-lg-0 search-form" action="/search" methos="get" id="searchform" >
+        <input class="form-control mr-sm-2" id="search-input" type="search" name="query" placeholder="Search" aria-label="Search">
+        <button class="btn my-2 my-sm-0 button-search" type="submit">Search</button>
+      </form>
+      {% if user.is_authenticated %}
+      <div class="dropdown">
+        <button class="btn  button-login dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Welcome {{request.user}}
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="/logout">Logout</a>
+          {% else %}
+          <!--  Button to trigger Login modal  -->
+          <button type="button" class=" button-login  btn  " data-toggle="modal" data-target="#loginModal">
+            Login
+          </button>
+          {% comment %} Button to trigger SignUp modal {% endcomment %}
+          <button type="button" class="button-signup btn" data-toggle="modal" data-target="#signupModal">
+            SignUp
+          </button>
+          {% endif %}
+        </div>
+  </nav>
+
+  {% for message in messages %}
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
+    <strong>Message: </strong>{{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  {% endfor %}
+
+
+  {% csrf_token %}
+  <!-- SignUp Modal -->
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      {% csrf_token %}
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="signupModalLabel">SignUp</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="/signup" method="post">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Username</label>
+              <input type="text" class="form-control" id="username" name="username" aria-describedby="emailHelp"
+                required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">First name</label>
+              <input type="text" class="form-control" id="fname" name="fname" aria-describedby="emailHelp" required>
+            </div>{% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputEmail1">Last name</label>
+              <input type="text" class="form-control" id="lname" name="lname" aria-describedby="emailHelp" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email</label>
+              <input type="email" class="form-control" id="email1" name="email" aria-describedby="emailHelp" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" name="password" id="password" required>
+            </div>
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputPassword1">Confirm Password</label>
+              <input type="password" class="form-control" id="cpassword" name="cpassword" required>
+            </div>
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Login Modal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="loginModalLabel">Login</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>{% csrf_token %}
+        <div class="modal-body">
+          <form action="/login" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputEmail1">User name</label>
+              <input type="text" class="form-control" id="loginusername" name="loginusername"
+                aria-describedby="emailHelp" required>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input type="password" class="form-control" name="loginpassword" id="loginpassword" required>
+            </div>{% csrf_token %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {% block body %}
+  {% endblock body %}
+
+  <div class="container-fluid bg-dark text-light py-2">
+    <p class="text-center mb-0">Copyright Tech Hp 2020 | All rights reserved</p>
+  </div>
+
+
+  {% block js %}
+
+  {% endblock js %}
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

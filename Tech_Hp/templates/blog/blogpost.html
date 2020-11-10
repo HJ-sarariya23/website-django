@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block title %} {{post.title}} | Tech Hp {% endblock title %}
+{% block blogactive %} active {% endblock blogactive %}
+
+{% block css %}
+
+<link rel="stylesheet" href="/static/css/style.css">
+
+{% endblock css %}
+{% block js %}
+
+<script>
+
+        let previews = document.getElementsByClassName('previews');
+        Array.from(previews).forEach((element) => {
+                element.innerHTML = element.innerText;
+        })
+
+
+</script>
+
+
+{% endblock js %}
+
+{% block body %}
+
+{% load humanize %}
+{% load extras %}
+
+
+
+
+<div class="homedesign">
+
+        <div class="container blog-post-design pt-3 mt-3 ">
+                <span>
+                        <h4><a class="text-dark" href="/">Home</a> <span class="breadcrumb-separator ">/</span>
+                                <span>
+                                        <a class="text-dark" href="/blog/">Articles</a> <span
+                                                class="breadcrumb-separator">/</span></h4>
+                </span>
+                </span>
+                <hr>
+
+                <h1> {{post.title}}</h1>
+
+                <span>Post at : {{post.timestamp}} </span>
+                <p class="mt-3">Category : <a href="/blog/category/{{post.category}}/"
+                                class="text-dark "><b>{{post.category}}</b></a></p>
+                <div class="article-content">
+                        <p class="article-content on-light ">{{post.content|safe}}</p>
+                </div>
+                <h2 class="comment-title">Comments ({{comments.count}})</h2>
+
+                {% if user.is_authenticated %}
+                <form action="/blog/postComment" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                                <label for="exampleInputEamil1">Post Comment</label>
+                                <input type="text" class="form-control" name="comment"
+                                        placeholder="Enter your Comment here" required>
+
+                        </div>
+                        <input type="hidden" name="postSno" value="{{post.sno}}">
+                        <input type="hidden" name="parentSno" value="">
+
+                        <button type="submit" class="btn btn-primary">Post</button>
+
+                </form>
+
+                {% else %}
+                <p class="card-body">Plase login to post a comment</p>
+
+                {% endif %}
+
+
+                <p class=" card-body">
+                        <a class="text-dark " data-toggle="collapse" href="#collapseExample" role="button"
+                                aria-expanded="false" aria-controls="collapseExample">
+                                See Comments
+                        </a>
+
+                </p>
+                <div class="collapse" id="collapseExample">
+                        {% if comment == 0 %}
+
+                        <p>Be the First to ask the comment.</p>
+                        {% else %}
+                        <div class="row  grid-container my-3">
+                                {% for comment in comments reversed %}
+
+                                <div class="grid-item">
+                                        <img src="/static/img/user.png" class="userpic" alt="user">
+                                </div>
+                                <div class="comment-content">
+                                        <b>{{comment.user.username}}</b> <span
+                                                class="badge badge-secondary">{{comment.timestamp | naturaltime}}</span>
+                                        <div>{{comment.comment}}</div>
+
+
+                                        <div class="reply mx-0 ">
+                                                <button class="btn btn-sm btn-primary mb-2" type="button"
+                                                        data-toggle="collapse" data-target="#replyBox{{comment.sno}}"
+                                                        aria-expanded="false" aria-controls="replyBox{{comment.sno}}">
+                                                        Reply
+                                                </button>
+
+                                                <div class="collapse " id="replyBox{{comment.sno}}">
+                                                        <div class="card card-body ">
+                                                                {% if user.is_authenticated %}
+                                                                <form action="/blog/postComment" method="post">
+                                                                        {% csrf_token %}
+                                                                        <div class="form-group">
+                                                                                <label for="comment">Post Reply</label>
+                                                                                <input type="text" class="form-control"
+                                                                                        name="comment" required
+                                                                                        placeholder="Enter your Reply here">
+                                                                                <input type="hidden" name="parentSno"
+                                                                                        value="{{comment.sno}}">
+
+                                                                        </div>
+                                                                        <input type="hidden" name="postSno"
+                                                                                value="{{post.sno}}">
+                                                                        <button type="submit"
+                                                                                class="btn  btn-primary">Post</button>
+
+                                                                </form>
+
+                                                                {% else %}
+                                                                <p>Plase login to reply a comment</p>
+
+                                                                {% endif %}
+                                                        </div>
+                                                </div>
+
+                                                <div class="replies  my-2">
+                                                        {% for reply in replyDict|get_val:comment.sno %}
+
+                                                        <div class="row grid-container ">
+                                                                <div class=" grid-item">
+                                                                        <img src="/static/img/user.png" class="userpic"
+                                                                                alt="user">
+                                                                </div>
+                                                                <div class="reply-content">
+                                                                        <b>{{reply.user.username}}</b> <span
+                                                                                class="badge badge-secondary">{{reply.timestamp | naturaltime}}</span>
+                                                                        <div>{{reply.comment}}</div>
+                                                                </div>
+
+                                                        </div>
+                                                        {% endfor %}
+
+                                                </div>
+                                        </div>
+                                </div>
+                                {% endfor %}
+                                {% endif %}
+                        </div>
+
+                </div>
+                <h2>Recent Post:</h2>
+                {% for post in lts %}
+
+                {% load static %}
+                <div class="media pt-3 pb-3 mt-3">
+                        <a href="{{post.slug}}" id="desc"><img src="/static/img/{{post.image}}"
+                                        class="mr-3 bloghomeimg rounded card-img-top" alt="..."></a>
+                        <div class="media-body ">
+                                <h4 class="card-title mt-2  mx-2 px-2">
+                                        <a href="{{post.slug}}" class="text-dark" id="title">{{post.title}}</a></h4>
+                                <a href="{{post.slug}}" class="text-dark" id="desc">
+                                        <p class="card-text ">
+                                                <div class="previews  px-2 mx-2">
+                                                        {{post.content|safe|truncatechars_html:400}}</div>
+                                        </p>
+                                </a>
+                        </div>
+                </div>
+                {% endfor %}
+
+        </div>
+</div>
+{% endblock body %}
