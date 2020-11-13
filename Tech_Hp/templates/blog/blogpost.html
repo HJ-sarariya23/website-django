@@ -53,7 +53,7 @@
                 </div>
                 <h2 class="comment-title">Comments ({{comments.count}})</h2>
 
-                {% if user.is_authenticated %}
+
                 <form action="/blog/postComment" method="POST">
                         {% csrf_token %}
                         <div class="form-group">
@@ -69,24 +69,6 @@
 
                 </form>
 
-                {% else %}
-                <p class="card-body">Plase login to post a comment</p>
-
-                {% endif %}
-
-
-                <p class=" card-body">
-                        <a class="text-dark " data-toggle="collapse" href="#collapseExample" role="button"
-                                aria-expanded="false" aria-controls="collapseExample">
-                                See Comments
-                        </a>
-
-                </p>
-                <div class="collapse" id="collapseExample">
-                        {% if comment == 0 %}
-
-                        <p>Be the First to ask the comment.</p>
-                        {% else %}
                         <div class="row  grid-container my-3">
                                 {% for comment in comments reversed %}
 
@@ -108,7 +90,7 @@
 
                                                 <div class="collapse " id="replyBox{{comment.sno}}">
                                                         <div class="card card-body ">
-                                                                {% if user.is_authenticated %}
+                                                              
                                                                 <form action="/blog/postComment" method="post">
                                                                         {% csrf_token %}
                                                                         <div class="form-group">
@@ -127,10 +109,7 @@
 
                                                                 </form>
 
-                                                                {% else %}
-                                                                <p>Plase login to reply a comment</p>
-
-                                                                {% endif %}
+                                                         
                                                         </div>
                                                 </div>
 
@@ -155,10 +134,9 @@
                                         </div>
                                 </div>
                                 {% endfor %}
-                                {% endif %}
                         </div>
 
-                </div>
+                <!-- </div> -->
                 <h2>Recent Post:</h2>
                 {% for post in lts %}
 
@@ -167,17 +145,21 @@
                         <a href="{{post.slug}}" id="desc"><img src="/static/img/{{post.image}}"
                                         class="mr-3 bloghomeimg rounded card-img-top" alt="..."></a>
                         <div class="media-body ">
+        <a href="/blog/category/{{post.category}}/" class="badge badge-primary m-3 px-2">{{post.category }}</a>
+
                                 <h4 class="card-title mt-2  mx-2 px-2">
                                         <a href="{{post.slug}}" class="text-dark" id="title">{{post.title}}</a></h4>
                                 <a href="{{post.slug}}" class="text-dark" id="desc">
                                         <p class="card-text ">
                                                 <div class="previews  px-2 mx-2">
-                                                        {{post.content|safe|truncatechars_html:400}}</div>
+                                                        {{post.content|safe|truncatechars_html:300}}</div>
                                         </p>
                                 </a>
                         </div>
                 </div>
                 {% endfor %}
+
+
 
         </div>
 </div>

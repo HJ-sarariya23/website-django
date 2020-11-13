@@ -52,54 +52,22 @@ def handlesignup(request):
     if request.method == 'POST':
         # Get the post perameter
         username =  request.POST['username']
-        fname =  request.POST['fname']
-        lname =  request.POST['lname']
         email = request.POST['email']
-        password = request.POST['password']
-        cpassword = request.POST['cpassword']
-
-        # Check for the errorneous inputs
         if len(username) > 8:
             messages.error(request, "Username must be under 8 characters.")
             return redirect('home')
 
-        if password != cpassword:
-            messages.error(request , "Password do not match.")    
-            return redirect('home')
 
         if not username.isalnum():
             messages.error(request , "Username shoud only contain letters and numbers.")
             return redirect('home')
 
-        myuser = User.objects.create_user(username , email , password)
-        myuser.first_name = fname
-        myuser.last_name = lname
+        myuser = User.objects.create_user(username , email)
         myuser.save()
         messages.success(request, "Your  account has been successfully created !")
         return redirect('home')
     else :
         return HttpResponse("404 = Not found Error")    
 
-def handlelogin(request):
-    if request.method == 'POST':
-        loginusername = request.POST['loginusername']
-        loginpassword = request.POST['loginpassword']
 
-        user = authenticate(username=loginusername,password=loginpassword)
-
-        if user is not None:
-            login(request, user)
-            messages.success(request , "Successfully Logged In")
-            return redirect('home')
-
-        else:
-            messages.error(request,"Invalid credentials, Please try again")
-            return redirect('home')
-
-    return HttpResponse("404 - Not found")
-
-def handlelogout(request):
-    logout(request)
-    messages.success(request, "Successfully Logged Out")
-    return redirect('home')
     

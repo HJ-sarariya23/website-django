@@ -35,11 +35,12 @@
         <img src="/static/img/{{post.image}}" class="mr-3 bloghomeimg rounded card-img-top" alt="...">
       </a>
       <div class="media-body">
+        <a href="/blog/category/{{post.category}}/" class="badge badge-primary m-3 px-2">{{post.category }}</a>
 
         <h4 class="card-title mt-2 clrdesign mx-2 px-2"><a href="/blog/{{post.slug}}" id="title">{{post.title}}</a></h4>
         <a href="/blog/{{post.slug}}" id="desc">
           <p class="card-text ">
-            <div class="previews text-dark px-2 mx-2" >{{post.content|safe|truncatechars_html:400}}</div>
+            <div class="previews text-dark px-2 mx-2" >{{post.content|safe|truncatechars_html:300}}</div>
           </p>
           </a>
 
