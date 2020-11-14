@@ -11,7 +11,7 @@ from django.utils import timezone
 def home(request):
     # allPosts = Post.objects.all()
     # context = {'allPosts' : allPosts}
-    lts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-timestamp')[0:5]
+    lts = Post.objects.filter(published_date__lte=timezone.now()).order_by('-timestamp')[0:8]
     top_five_post = Post.objects.all().order_by('-views')[0:5]
     context = {'allPosts' :top_five_post, 'lts':lts}
     return render(request, "home/home.html",context)

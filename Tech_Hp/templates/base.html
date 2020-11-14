@@ -42,7 +42,7 @@
         <li class="nav-item {% block blogactive %}  {% endblock blogactive %}">
           <a class="nav-link" href="/blog/">Article</a>
         </li>
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown {% block category %}  {% endblock category %}">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
             aria-haspopup="true" aria-expanded="false">
             Top Categories
@@ -57,7 +57,7 @@
         </li>
 
         <li class="nav-item {% block contactactive %}  {% endblock contactactive %}">
-          <a class="nav-link" href="/contact">Contact</a>
+          <a class="nav-link" href="/contact">Contact Us</a>
         </li>
       </ul>
  
@@ -113,6 +113,7 @@
   </div>
 
   {% block body %}
+  
   {% endblock body %}
 
   <div class="container-fluid bg-dark text-light py-2">
@@ -123,6 +124,8 @@
   {% block js %}
 
   {% endblock js %}
+  <!-- Share button js -->
+  
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -134,6 +137,12 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
     integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
     crossorigin="anonymous"></script>
+
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5faf926da32d219a"></script>
+
+
 </body>
 
 </html>
