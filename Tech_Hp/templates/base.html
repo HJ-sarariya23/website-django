@@ -6,7 +6,6 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  
 
 
   <!-- Bootstrap CSS -->
@@ -14,14 +13,18 @@
     integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
 
   <link href="https://fonts.googleapis.com/css2?family=Baloo+Paaji+2&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Roboto&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@700&family=Roboto&display=swap"
+    rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css">
+<link rel="shortcut icon" type="image/jpg" href="/static/img/favicon.jpg"/>
 
 
   {% block css %}
 
   {% endblock css %}
-  <title>{% block title %}  {% endblock title %}</title>
+  <title>{% block title %} {% endblock title %}</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+    integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 
 
@@ -60,16 +63,17 @@
           <a class="nav-link" href="/contact">Contact Us</a>
         </li>
       </ul>
- 
-      <form class="form-inline my-2 my-lg-0 search-form" action="/search" methos="get" id="searchform" >
-        <input class="form-control mr-sm-2" id="search-input" type="search" name="query" placeholder="Search" aria-label="Search">
+
+      <form class="form-inline my-2 my-lg-0 search-form" action="/search" methos="get" id="searchform">
+        <input class="form-control mr-sm-2" id="search-input" type="search" name="query" placeholder="Search"
+          aria-label="Search">
         <button class="btn my-2 my-sm-0 button-search" type="submit">Search</button>
       </form>
-          <button type="button" class="button-signup btn" data-toggle="modal" data-target="#signupModal">
-            Subscribe
-          </button>
+      <button type="button" class="button-signup btn" data-toggle="modal" data-target="#signupModal">
+        Subscribe
+      </button>
   </nav>
-<hr>
+  <hr>
   {% for message in messages %}
   <div class="alert alert-{{ message.tags }} alert-dismissible fade show my-0" role="alert">
     <strong>Message: </strong>{{ message }}
@@ -113,19 +117,43 @@
   </div>
 
   {% block body %}
-  
   {% endblock body %}
 
-  <div class="container-fluid bg-dark text-light py-2">
-    <p class="text-center mb-0">Copyright Tech Razer 2020 | All rights reserved</p>
+
+  <div class="social-menu footer-1  social-menu text-light">
+    <li class="ttl">Tech Razer</li>
+    <ul>
+      <li><a href="https://www.facebook.com/harshil.sarariya/" target="_blank"><i class="fa fa-facebook"></i></a></li>
+      <li><a href="https://twitter.com/SarariyaHarshil" target="_blank"><i class="fa fa-twitter"></i></a></li>
+      <li><a href="https://www.instagram.com/harshilsarariya_2626/" target="_blank"><i class="fa fa-instagram"></i></a>
+      </li>
+      <li><a href="" target="_blank"><i class="fa fa-youtube"></i></a></li>
+      <li><a href="" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+    </ul>
+  </div>
+  <div class="footer-2 ">
+    <ul class="nav justify-content-end text-light">
+      <li class="nav-item1">
+        © 2020-2021 TechRazer.com
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/disclaimer">Disclaimer</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/privacy">Privacy Policy</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/termandconditions">Terms and conditions</a>
+      </li>
+    </ul>
   </div>
 
 
   {% block js %}
 
   {% endblock js %}
-  <!-- Share button js -->
-  
+
+
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
@@ -139,8 +167,8 @@
     crossorigin="anonymous"></script>
 
 
-<!-- Go to www.addthis.com/dashboard to customize your tools -->
-<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5faf926da32d219a"></script>
+  <!-- Go to www.addthis.com/dashboard to customize your tools -->
+  <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5faf926da32d219a"></script>
 
 
 </body>

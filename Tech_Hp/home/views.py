@@ -30,7 +30,12 @@ def contact(request):
                 messages.success(request, "Your massage has been successfully sent!")
         return render(request, 'home/contact.html')
 
-
+def privacy(request):
+    return render(request, 'home/privacy.html')
+def termandconditions(request):
+    return render(request, 'home/term&conditions.html')
+def disclaimer(request):
+    return render(request, 'home/disclaimer.html')
 
 def search(request):
     query = request.GET['query']
